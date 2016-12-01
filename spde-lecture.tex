@@ -18,7 +18,7 @@
 
 \rand
 %\renewcommand{\smalllogo}{\includegraphics[height=\smalllogoheight]{\alogoname{\arabic{rand}}}}
-\renewcommand{\smalllogo}{\includegraphics[height=\smalllogoheight]{\alogoname{2}}}
+\renewcommand{\smalllogo}{\includegraphics[height=\smalllogoheight]{\alogoname{1}}}
 
 \graphicspath{{.}{../pics/}}
 
@@ -70,24 +70,23 @@
 
 \begin{frame}{Why use S(P)DE solvers for GPs?}
 
-%\random
-
 \begin{itemize}[<+->]
 \item The $O(n^3)$ \alert{computational complexity} is always a challenge.
 %\item E.g. \alert{Inducing point methods}, \alert{grid-FFT}, \alert{compact support} -- but we need more.
 \item \alert{Latent force models} combine PDE/ODEs with GPs.
 \item What do we get:
 \begin{itemize}[<+->]
-\item Sparse approximations developed for SPDEs.
-\item Reduced rank Fourier/basis function approximations.
-\item The use of Markov properties and Markov approximations.
-\item State-space methods for SDEs/SPDEs.
+\item \alert{Sparse approximations} developed for SPDEs.
+\item \alert{Reduced rank} Fourier/basis function approximations.
+\item The use of \alert{Markov properties} and Markov approximations.
+\item \alert{State-space} methods for SDEs/SPDEs.
+\item Path to \alert{non-Gaussian processes}.
 \end{itemize}
 \item Downsides:
 \begin{itemize}[<+->]
 \item Approximations of non-parametric models with parametric models.
 \item Approximations of a non-Markovian models as Markovian.
-\item Mathematics come become messy.
+\item Mathematics can become messy.
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -273,7 +272,7 @@ Stochastic evolution equation
 \begin{equation}
 \begin{split}
   f(\mathbf{x}) &\approx \sum_{\mathbf{k} \in \mathbb{N}^d}
-    c_\mathbf{k} \, \exp\left(2 \pi \, \mathbf{k}^\mathsf{T} \, \mathbf{x} \right) \\
+    c_\mathbf{k} \, \exp\left(2 \pi \, \mathrm{i} \, \mathbf{k}^\mathsf{T} \, \mathbf{x} \right) \\
     c_\mathbf{k} &\sim \text{Gaussian}
 \end{split}
 \nonumber
@@ -294,12 +293,12 @@ Stochastic evolution equation
 \begin{equation}
 \begin{split}
   k(\mathbf{x},\mathbf{x}') \approx \sum_{|\mathbf{k}| \le N} 
-    \sigma^2_{\mathbf{k}} \, \exp\left(2 \pi \, \mathbf{k}^\mathsf{T} \, \mathbf{x} \right)
-    \, \exp\left(2 \pi \, \mathbf{k}^\mathsf{T} \, \mathbf{x}' \right)^*
+    \sigma^2_{\mathbf{k}} \, \exp\left(2 \pi \, \mathrm{i} \, \mathbf{k}^\mathsf{T} \, \mathbf{x} \right)
+    \, \exp\left(2 \pi \, \mathrm{i} \, \mathbf{k}^\mathsf{T} \, \mathbf{x}' \right)^*
 \end{split}
 \nonumber
 \end{equation}
-\item In regular grids, \alert{we can use FFT}.
+\item Truncated series, random frequencies, FFT, \ldots
 \end{itemize}
 
 \end{frame}
@@ -454,15 +453,15 @@ where we have $\rho = \sqrt{(t-t')^2+ (x-x')^2}$, $\nu=1$ and $d=2$.
 \begin{frame}{What then?}
 
 \begin{itemize}[<+->]
-\item \alert{Point collocation} -- do we get \alert{inducing point} methods?
-\item Best ways to \alert{combine state-space} and other approximations?
+\item \alert{Inducing point} methods = basis function methods
+\item \alert{Inference} on the basis functions/point-locations/etc.
 \item \alert{Non-Gaussian} processes, non-Gaussian likelihoods.
 \item \alert{Combined first-principles} and nonparametric models -- latent force models (LFM).
 \item \alert{Inverse problems} -- operators in measurement model.
 \item \alert{State-space stochastic control} in Gaussian processes and LFMs.
-\item \alert{SPDE methods for SVMs?}
-\item \alert{Kernel embedding of S(P)DEs?}
-\item \alert{Deep S(P)DE models?}
+\item \alert{SPDE methods for SVMs}
+\item \alert{Kernel embedding of S(P)DEs}
+\item \alert{Deep S(P)DE models}
 \end{itemize}
 
 \end{frame}
