@@ -48,7 +48,7 @@
 \AtBeginSection[]
 {
   \begin{frame}<beamer>
-    \frametitle{Learning Outcomes}
+    \frametitle{Contents}
     \tableofcontents[currentsection]
   \end{frame}
 }
@@ -58,15 +58,142 @@
 
 \aaltotitleframe
 
-%\begin{frame}
-%  \frametitle{Contents}
-%  \tableofcontents[pausesections]
-%  % You might wish to add the option [pausesections]
-%\end{frame}
+\begin{frame}
+  \frametitle{Contents}
+  \tableofcontents[pausesections]
+  % You might wish to add the option [pausesections]
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\section{Motivation}
+\section{Motivating Applications}
+
+\begin{frame}
+ \frametitle{Magneto- and Electroencephalography (MEG \& EEG)}
+
+\begin{itemize}[<+->]
+\item \alert{Unknown}: Time course of amplitudes of dipole sources.
+ \item \alert{Observed}: Electromagnetic field (potential / flux).  
+ \end{itemize}
+ \begin{center}
+ \includegraphics[width=0.6\textwidth]{head-col}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Electrical Impedance and Capacitance Tomography (EIT \& ECT)}
+
+ \begin{itemize}[<+->]
+ \item \alert{Unknown}: Conductivity/permittivity constants.
+ \item \alert{Observed}: Impedances on boundary.  
+ \end{itemize}
+ \begin{center}
+ \includegraphics[width=0.6\textwidth]{rocsole}
+  
+ {\tiny Source: Rocsole Ltd. -- www.rocsole.com}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Magnetic field mapping}
+
+\begin{itemize}[<+->]
+\item \alert{Unknown}: Magnetic field (or actually the corresponding potential).
+\item \alert{Observed}: Point measurements of the magnetic field.  
+\end{itemize}
+\begin{center}
+\includegraphics[width=0.4\textwidth]{table-surf}
+  
+\end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Machine learning and Kriging}
+
+ \begin{itemize}[<+->]
+ \item \alert{Unknown}: Class labels or missing spatial values.
+ \item \alert{Observed}: Subset (training set) of class labels, spatial values, and predictors. 
+ \end{itemize}
+ \begin{center}
+ \includegraphics[width=0.57\textwidth]{demo_classific2}
+ \includegraphics[width=0.3\textwidth]{spatial1_pic1}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Target Tracking and Location Sensing}
+
+ \begin{itemize}[<+->]
+ \item \alert{Unknown}: Target trajectories and velocities.
+ \item \alert{Observed}: Direction or inertial measurements.  
+ \end{itemize}
+ \begin{center}
+ \includegraphics[width=0.6\textwidth]{tracking2-col}
+ \end{center}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Using SPDE solvers on Gaussian processes}
+
+\begin{frame}{Gaussian process regression models and inverse problems}
+
+ \begin{itemize}[<+->]
+ \item A typical \alert{statistical inverse problem}:
+\begin{equation}
+\begin{split}
+  f(\mathbf{x}) &\sim \mathrm{GP}(m(\mathbf{x}),k(\mathbf{x},\mathbf{x}')) \\
+  \mathbf{y} &= \boldsymbol{\mathcal{H}} \, f(\mathbf{x}) + \boldsymbol{\varepsilon} %, \qquad \varepsilon \sim \mathrm{N}(\mathbf{0},\Sigma),
+\end{split}
+\nonumber
+\end{equation}
+
+\item The \alert{operator matrix} $\boldsymbol{\mathcal{H}}$ encodes \alert{physics} into the model.
+
+\item The \alert{mean} $m(\mathbf{x})$ and \alert{covariance function} $k(\mathbf{x},\mathbf{x}')$ encode the prior information on $f(\mathbf{x})$.
+
+\item In plain \alert{Gaussian process regression} we have
+\begin{equation}
+\begin{split}
+\boldsymbol{\mathcal{H}} \, f(\mathbf{x}) = \begin{pmatrix}
+  f(\mathbf{x}_1) \\ \vdots \\ f(\mathbf{x}_N))
+  \end{pmatrix}
+\end{split}
+\nonumber
+\end{equation}
+
+ \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Gaussian process regression models and inverse problems (cont.)}
+
+ \begin{itemize}[<+->]
+ \item \alert{Temporal} models (models with single input):
+\begin{equation}
+\begin{split}
+  f(t) &\sim \mathrm{GP}(m(t),k(t,t')) \\
+  \mathbf{y} &= \boldsymbol{\mathcal{H}} \, f(t) + \boldsymbol{\varepsilon} %, \qquad \varepsilon \sim \mathrm{N}(\mathbf{0},\Sigma),
+\end{split}
+\nonumber
+\end{equation}
+ 
+\item \alert{Spatio-temporal} models:
+\begin{equation}
+\begin{split}
+  f(\mathbf{x},t) &\sim \mathrm{GP}(m(\mathbf{x},t),k(\mathbf{x},t;\mathbf{x}',t')) \\
+  \mathbf{y} &= \boldsymbol{\mathcal{H}} \, f(\mathbf{x},t) + \boldsymbol{\varepsilon} %, \qquad \varepsilon \sim \mathrm{N}(\mathbf{0},\Sigma),
+\end{split}
+\nonumber
+\end{equation}
+
+\item All of these can be recasted as \alert{statistical estimation on a stochastic partial differential equation (SPDE) model}.
+
+\end{itemize}
+\end{frame}
+
+
 
 \begin{frame}{Why use S(P)DE solvers for GPs?}
 
@@ -90,8 +217,6 @@
 \end{itemize}
 \end{itemize}
 \end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Kernel vs. SPDE representations of GPs}
 
@@ -133,6 +258,10 @@ Stochastic evolution equation
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{What do the SPDE methods then look like?}
 
 \begin{frame}{Basic idea of SPDE inference on GPs [1/2]}
 
@@ -166,7 +295,7 @@ Stochastic evolution equation
 
 \item But this is just the \alert{Mat\'ern covariance function}.
 
-\item The corresponding \alert{RKHS} is actually a \alert{Sobolev space}.
+\item The corresponding \alert{RKHS} is a \alert{Sobolev space}.
 
 %\item Any probabilistic (weak) \alert{question on GP} with covariance $k$ is equivalent to the \alert{question on the SPDE model}.
 \end{itemize}
@@ -449,21 +578,33 @@ where we have $\rho = \sqrt{(t-t')^2+ (x-x')^2}$, $\nu=1$ and $d=2$.
 
 \end{frame}
 
+\section{Discussion and summary}
 
 \begin{frame}{What then?}
 
 \begin{itemize}[<+->]
-\item \alert{Inducing point} methods = basis function methods
+\item We can \alert{exchange approximations} between the fields.
 \item \alert{Inference} on the basis functions/point-locations/etc.
 \item \alert{Non-Gaussian} processes, non-Gaussian likelihoods.
+\item \alert{Hierarchical} (deep) \alert{SPDE models}.
 \item \alert{Combined first-principles} and nonparametric models -- latent force models (LFM).
-\item \alert{Inverse problems} -- operators in measurement model.
+%\item \alert{Inverse problems} -- operators in measurement model.
 \item \alert{State-space stochastic control} in Gaussian processes and LFMs.
-\item \alert{SPDE methods for SVMs}
-\item \alert{Kernel embedding of S(P)DEs}
-\item \alert{Deep S(P)DE models}
+%\item \alert{SPDE methods for SVMs}
+%\item \alert{Kernel embedding of S(P)DEs}
 \end{itemize}
 
+\end{frame}
+
+\begin{frame}{Summary}
+\begin{itemize}[<+->]
+\item Gaussian processes (GPs) can be used as \alert{priors in inverse problems}.
+\item Applications in e.g. \alert{brain imaging, tomography, positioning, and Kriging}.
+\item GPs have representations as \alert{solutions to SPDEs}.
+\item SPDE methods can be used to \alert{speed up GP inference}.
+\item In temporal models we can use \alert{Kalman/Bayesian filters and smoothers}.
+\item Opens up new paths towards \alert{non-linear GP models}.
+\end{itemize}
 \end{frame}
 
 
