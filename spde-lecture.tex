@@ -586,11 +586,11 @@ where we have $\rho = \sqrt{(t-t')^2+ (x-x')^2}$, $\nu=1$ and $d=2$.
 \item We can \alert{exchange and map approximations} between the fields:
 \begin{itemize}[<+->]
 \item Inducing points $\leftrightarrow$ point-collocation; spectral methods $\leftrightarrow$ Galerkin methods; finite-differences $\leftrightarrow$ GMRFs;
-\item EP $\leftrightarrow$ linearization; \ldots
+\item EP is {\em just a linearization method} -- there are better linearization methods in other fields.
 \end{itemize}
-\item \alert{Non-Gaussian} processes.
-\item \alert{Hierarchical} (deep) \alert{SPDE models}.
-\item \alert{Combined first-principles} and nonparametric models -- latent force models (LFM).
+\item \alert{Non-Gaussian} processes: Student's-t processes, non-linear It\^o processes, jump processes, hybrid point/Gaussian processes.
+\item \alert{Hierarchical} (deep) \alert{SPDE models}: we \alert{stack SPDEs} on top of each other -- the SPDE just becomes non-linear.
+\item \alert{Combined first-principles} and nonparametric models -- latent force models (LFM), also non-linear and non-Gaussian LFMs.
 \item \alert{Inverse problems} -- operators in the measurement model.
 %\item \alert{State-space stochastic control} in Gaussian processes and LFMs.
 %\item \alert{SPDE methods for SVMs}
