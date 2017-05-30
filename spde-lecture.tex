@@ -33,9 +33,9 @@
   %\beamertemplatesolidbackgroundcolor{black!5}
 }
 
-\title{Stochastic (Partial) Differential Equations and Gaussian Processes}
+\title{ Stochastic (Partial) Differential Equation Methods for Gaussian Processes}
 
-\aaltofootertext{S(P)DEs and GPs}{Simo S\"arkk\"a}{\insertframenumber\,/\,\inserttotalframenumber\ }
+\aaltofootertext{S(P)DEs methods for GPs}{Simo S\"arkk\"a}{\insertframenumber\,/\,\inserttotalframenumber\ }
 
 \author{{\bf Simo S\"arkk\"a}}
 
@@ -136,10 +136,10 @@
 
 \section{Using SPDE solvers on Gaussian processes}
 
-\begin{frame}{Gaussian process regression models and inverse problems}
+\begin{frame}{Gaussian process regression models}
 
  \begin{itemize}[<+->]
- \item A typical \alert{statistical inverse problem}:
+ \item A typical \alert{GP regression problem}:
 \begin{equation}
 \begin{split}
   f(\mathbf{x}) &\sim \mathrm{GP}(m(\mathbf{x}),k(\mathbf{x},\mathbf{x}')) \\
@@ -147,10 +147,6 @@
 \end{split}
 \nonumber
 \end{equation}
-
-\item The \alert{operator matrix} $\boldsymbol{\mathcal{H}}$ encodes \alert{physics} into the model.
-
-\item The \alert{mean} $m(\mathbf{x})$ and \alert{covariance function} $k(\mathbf{x},\mathbf{x}')$ encode the prior information on $f(\mathbf{x})$.
 
 \item In plain \alert{Gaussian process regression} we have
 \begin{equation}
@@ -162,12 +158,16 @@
 \nonumber
 \end{equation}
 
+\item In inverse problems the \alert{operator matrix} $\boldsymbol{\mathcal{H}}$ encodes \alert{physics} into the model.
+
+\item The \alert{mean} $m(\mathbf{x})$ and \alert{covariance function} $k(\mathbf{x},\mathbf{x}')$ encode the prior information on $f(\mathbf{x})$.
+
  \end{itemize}
 
 \end{frame}
 
 
-\begin{frame}{Gaussian process regression models and inverse problems (cont.)}
+\begin{frame}{Gaussian process regression models (cont.)}
 
  \begin{itemize}[<+->]
  \item \alert{Temporal} models (models with single input):
@@ -295,7 +295,7 @@ Stochastic evolution equation
 
 \item But this is just the \alert{Mat\'ern covariance function}.
 
-\item The corresponding \alert{RKHS} is a \alert{Sobolev space}.
+% \item The corresponding \alert{RKHS} is a \alert{Sobolev space}.
 
 %\item Any probabilistic (weak) \alert{question on GP} with covariance $k$ is equivalent to the \alert{question on the SPDE model}.
 \end{itemize}
@@ -583,13 +583,16 @@ where we have $\rho = \sqrt{(t-t')^2+ (x-x')^2}$, $\nu=1$ and $d=2$.
 \begin{frame}{What then?}
 
 \begin{itemize}[<+->]
-\item We can \alert{exchange approximations} between the fields.
-\item \alert{Inference} on the basis functions/point-locations/etc.
-\item \alert{Non-Gaussian} processes, non-Gaussian likelihoods.
+\item We can \alert{exchange and map approximations} between the fields:
+\begin{itemize}[<+->]
+\item Inducing points $\leftrightarrow$ point-collocation; spectral methods $\leftrightarrow$ Galerkin methods; finite-differences $\leftrightarrow$ GMRFs;
+\item EP $\leftrightarrow$ linearization; \ldots
+\end{itemize}
+\item \alert{Non-Gaussian} processes.
 \item \alert{Hierarchical} (deep) \alert{SPDE models}.
 \item \alert{Combined first-principles} and nonparametric models -- latent force models (LFM).
-%\item \alert{Inverse problems} -- operators in measurement model.
-\item \alert{State-space stochastic control} in Gaussian processes and LFMs.
+\item \alert{Inverse problems} -- operators in the measurement model.
+%\item \alert{State-space stochastic control} in Gaussian processes and LFMs.
 %\item \alert{SPDE methods for SVMs}
 %\item \alert{Kernel embedding of S(P)DEs}
 \end{itemize}
@@ -598,7 +601,7 @@ where we have $\rho = \sqrt{(t-t')^2+ (x-x')^2}$, $\nu=1$ and $d=2$.
 
 \begin{frame}{Summary}
 \begin{itemize}[<+->]
-\item Gaussian processes (GPs) can be used as \alert{priors in inverse problems}.
+\item Gaussian processes (GPs) are nice, \alert{but the computational scaling is bad.}
 \item Applications in e.g. \alert{brain imaging, tomography, positioning, and Kriging}.
 \item GPs have representations as \alert{solutions to SPDEs}.
 \item SPDE methods can be used to \alert{speed up GP inference}.
